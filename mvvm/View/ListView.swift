@@ -39,11 +39,10 @@ class ListView: UITableViewController {
         guard let viewModel = viewModel else {
             return UITableViewCell()
         }
-        let identifier = viewModel.cellIdentifier(at: indexPath)
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        let cellViewModel = viewModel.cellViewModel(at: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellViewModel.identifier, for: indexPath)
         if let configurableCell = cell as? ConfigurableCell {
-            let configurableCellVM = viewModel.cellViewModel(at: indexPath)
-            configurableCell.configure(configurableCellVM)
+            configurableCell.configure(cellViewModel)
         }
         return cell
     }

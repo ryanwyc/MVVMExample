@@ -13,13 +13,18 @@ protocol ListViewModelType {
     func viewDidLoad()
 
     // Outputs
-    func cellIdentifier(at indexPath: IndexPath) -> String
     func cellViewModel(at indexPath: IndexPath) -> ConfigurableCellViewModel
     func numberOfRowsInSection(section: Int) -> Int
     var reloadList: (() -> Void)? { get set }
 }
 
 class ListViewModel: ListViewModelType {
+
+    private let itemService: ItemService
+
+    init(itemService: ItemService = ItemService()) {
+        self.itemService = itemService
+    }
 
     private var cellViewModels: [ConfigurableCellViewModel] = [] {
         didSet {
@@ -29,20 +34,23 @@ class ListViewModel: ListViewModelType {
 
     // Inputs
     func viewDidLoad() {
-        cellViewModels = [
-            ListItemOneCellViewModel(identifier: "ListItemOneCell", title: "Good One", subTitle: "What is that?"),
-            ListItemTwoCellViewModel(identifier: "ListItemTwoCell", title: "Good Two", subTitle: "What is that?", date: "2018-09-05"),
-            ListItemOneCellViewModel(identifier: "ListItemOneCell", title: "Good One", subTitle: "What is that?"),
-            ListItemTwoCellViewModel(identifier: "ListItemTwoCell", title: "Good Two", subTitle: "What is that?", date: "2018-09-05")
-        ]
+        self.itemService.fetchItems { items in
+            guard let items = items else {
+                cellViewModels = []
+                return
+            }
+            cellViewModels = items.map {
+                if let date = $0.date {
+                    return ListItemTwoCellViewModel(identifier: "ListItemTwoCell", title: $0.title, subTitle: $0.subTitle, date: date)
+                } else {
+                    return ListItemOneCellViewModel(identifier: "ListItemOneCell", title: $0.title, subTitle: $0.subTitle)
+                }
+            }
+        }
     }
 
     // Outputs
     var reloadList: (() -> Void)?
-
-    func cellIdentifier(at indexPath: IndexPath) -> String {
-        return cellViewModel(at: indexPath).identifier
-    }
 
     func cellViewModel(at indexPath: IndexPath) -> ConfigurableCellViewModel {
         return cellViewModels[indexPath.row]

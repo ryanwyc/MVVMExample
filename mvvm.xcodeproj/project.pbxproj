@@ -23,6 +23,11 @@
 		FD89059821407A5700860238 /* ListItemTwoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD89059721407A5700860238 /* ListItemTwoCellViewModel.swift */; };
 		FD89059F2141636500860238 /* RootViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD89059E2141636500860238 /* RootViewModelTests.swift */; };
 		FD8905A4214164BA00860238 /* MockSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8905A3214164BA00860238 /* MockSearchService.swift */; };
+		FD8905A721419B8300860238 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8905A621419B8300860238 /* ListItem.swift */; };
+		FD8905A921419BE800860238 /* ItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8905A821419BE800860238 /* ItemService.swift */; };
+		FD8905AB2141B66200860238 /* ListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8905AA2141B66200860238 /* ListViewModelTests.swift */; };
+		FD8905AD2141B67900860238 /* MockItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8905AC2141B67900860238 /* MockItemService.swift */; };
+		FD8905B02141BD7400860238 /* RootViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8905AF2141BD7400860238 /* RootViewTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +61,11 @@
 		FD89059721407A5700860238 /* ListItemTwoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemTwoCellViewModel.swift; sourceTree = "<group>"; };
 		FD89059E2141636500860238 /* RootViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModelTests.swift; sourceTree = "<group>"; };
 		FD8905A3214164BA00860238 /* MockSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchService.swift; sourceTree = "<group>"; };
+		FD8905A621419B8300860238 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
+		FD8905A821419BE800860238 /* ItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemService.swift; sourceTree = "<group>"; };
+		FD8905AA2141B66200860238 /* ListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModelTests.swift; sourceTree = "<group>"; };
+		FD8905AC2141B67900860238 /* MockItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockItemService.swift; sourceTree = "<group>"; };
+		FD8905AF2141BD7400860238 /* RootViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				FD89059C2141620100860238 /* Common */,
+				FD8905A521419B6500860238 /* Model */,
 				FD8905992141619C00860238 /* View */,
 				FD89059A214161A900860238 /* ViewModel */,
 				FD89059B214161B700860238 /* Service */,
@@ -113,6 +124,7 @@
 		FD8905792140229400860238 /* mvvmTests */ = {
 			isa = PBXGroup;
 			children = (
+				FD8905AE2141BD5D00860238 /* View */,
 				FD8905A22141649700860238 /* Mock */,
 				FD89059D2141631400860238 /* ViewModel */,
 				FD89057C2140229400860238 /* Info.plist */,
@@ -144,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				FD890589214036DB00860238 /* SearchService.swift */,
+				FD8905A821419BE800860238 /* ItemService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -160,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				FD89059E2141636500860238 /* RootViewModelTests.swift */,
+				FD8905AA2141B66200860238 /* ListViewModelTests.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -186,8 +200,25 @@
 			isa = PBXGroup;
 			children = (
 				FD8905A3214164BA00860238 /* MockSearchService.swift */,
+				FD8905AC2141B67900860238 /* MockItemService.swift */,
 			);
 			path = Mock;
+			sourceTree = "<group>";
+		};
+		FD8905A521419B6500860238 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FD8905A621419B8300860238 /* ListItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FD8905AE2141BD5D00860238 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FD8905AF2141BD7400860238 /* RootViewTests.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,6 +322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD8905A721419B8300860238 /* ListItem.swift in Sources */,
 				FD89059021406EFD00860238 /* ListItemOneCell.swift in Sources */,
 				FD8905882140230B00860238 /* RootView.swift in Sources */,
 				FD89059821407A5700860238 /* ListItemTwoCellViewModel.swift in Sources */,
@@ -299,6 +331,7 @@
 				FD89058A214036DB00860238 /* SearchService.swift in Sources */,
 				FD89059621407A1400860238 /* ListItemTwoCell.swift in Sources */,
 				FD89058E214052EE00860238 /* ListViewModel.swift in Sources */,
+				FD8905A921419BE800860238 /* ItemService.swift in Sources */,
 				FD89058C2140526700860238 /* ListView.swift in Sources */,
 				FD890586214022B300860238 /* RootViewModel.swift in Sources */,
 				FD8905662140229100860238 /* AppDelegate.swift in Sources */,
@@ -311,6 +344,9 @@
 			files = (
 				FD89059F2141636500860238 /* RootViewModelTests.swift in Sources */,
 				FD8905A4214164BA00860238 /* MockSearchService.swift in Sources */,
+				FD8905B02141BD7400860238 /* RootViewTests.swift in Sources */,
+				FD8905AD2141B67900860238 /* MockItemService.swift in Sources */,
+				FD8905AB2141B66200860238 /* ListViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

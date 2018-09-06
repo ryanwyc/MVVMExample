@@ -15,7 +15,14 @@ class RootView: UIViewController {
     @IBOutlet weak private var loadingIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak private var viewMoreButton: UIButton!
 
-    var viewModel: RootViewModelType = RootViewModel()
+    private var viewModel: RootViewModelType?
+
+    static func instantiate(viewModel: RootViewModelType) -> RootView {
+        let storeboard = UIStoryboard(name: "Main", bundle: .main)
+        let vc = storeboard.instantiateViewController(withIdentifier: "RootView") as! RootView
+        vc.viewModel = viewModel
+        return vc
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,35 +30,35 @@ class RootView: UIViewController {
         entryTextField.delegate = self
         viewMoreButton.addTarget(self, action: #selector(navToListView), for: .touchUpInside)
         setupViewModelBinding()
-        viewModel.viewDidLoad()
+        viewModel?.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.viewWillAppear()
+        viewModel?.viewWillAppear()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.viewDidAppear()
+        viewModel?.viewDidAppear()
     }
 
     @objc private func entryTextFieldDidChange() {
-        viewModel.entryText = entryTextField.text
+        viewModel?.entryText = entryTextField.text
     }
 
     @objc private func navToListView() {
-        viewModel.tappedViewMore()
+        viewModel?.tappedViewMore()
     }
 
     private func setupViewModelBinding() {
-        viewModel.contentChanged = { [weak self] text in
+        viewModel?.contentChanged = { [weak self] text in
             DispatchQueue.main.async {
                 self?.contentLabel.text = text
             }
         }
 
-        viewModel.loaderChanged = { [weak self] shouldShow in
+        viewModel?.loaderChanged = { [weak self] shouldShow in
             DispatchQueue.main.async {
                 if shouldShow {
                     self?.loadingIndicatorView.startAnimating()
@@ -61,7 +68,7 @@ class RootView: UIViewController {
             }
         }
 
-        viewModel.shouldOpenViewMore = { [weak self] shouldOpen in
+        viewModel?.shouldOpenViewMore = { [weak self] shouldOpen in
             if shouldOpen {
                 let view = ListView.instantiate(viewModel: ListViewModel())
                 self?.navigationController?.pushViewController(view, animated: true)
@@ -70,7 +77,7 @@ class RootView: UIViewController {
             }
         }
 
-        viewModel.pageTitleChanged = { [weak self] title in
+        viewModel?.pageTitleChanged = { [weak self] title in
             self?.title = title
         }
     }

@@ -20,8 +20,8 @@ class RootViewModelTests: XCTestCase {
     }
 
     override func tearDown() {
-        super.tearDown()
         sut = nil
+        super.tearDown()
     }
 
     func testPageTitle() {
