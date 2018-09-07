@@ -9,7 +9,7 @@
 import Foundation
 
 struct ListItemOneCellViewModel: ConfigurableCellViewModel {
-    let identifier: String
+    let identifier: String = "ListItemOneCell"
     let title: String?
     let subTitle: String?
 }

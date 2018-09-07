@@ -9,7 +9,7 @@
 import Foundation
 
 struct ListItemTwoCellViewModel: ConfigurableCellViewModel {
-    let identifier: String
+    let identifier: String = "ListItemTwoCell"
     let title: String?
     let subTitle: String?
     let date: String?

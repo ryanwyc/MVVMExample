@@ -21,9 +21,12 @@ protocol ListViewModelType {
 class ListViewModel: ListViewModelType {
 
     private let itemService: ItemService
+    private let listItemsUseCase: ListItemsUseCase
 
-    init(itemService: ItemService = ItemService()) {
+    init(itemService: ItemService = ItemService(),
+         listItemsUseCase: ListItemsUseCase = ListItemsUseCase()) {
         self.itemService = itemService
+        self.listItemsUseCase = listItemsUseCase
     }
 
     private var cellViewModels: [ConfigurableCellViewModel] = [] {
@@ -34,18 +37,8 @@ class ListViewModel: ListViewModelType {
 
     // Inputs
     func viewDidLoad() {
-        self.itemService.fetchItems { items in
-            guard let items = items else {
-                cellViewModels = []
-                return
-            }
-            cellViewModels = items.map {
-                if let date = $0.date {
-                    return ListItemTwoCellViewModel(identifier: "ListItemTwoCell", title: $0.title, subTitle: $0.subTitle, date: date)
-                } else {
-                    return ListItemOneCellViewModel(identifier: "ListItemOneCell", title: $0.title, subTitle: $0.subTitle)
-                }
-            }
+        self.itemService.fetchItems { [weak self] items in
+            self?.cellViewModels = listItemsUseCase.createCellViewModels(with: items)
         }
     }
 
