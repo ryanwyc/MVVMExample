@@ -37,6 +37,17 @@ class RootViewTests: XCTestCase {
         XCTAssertEqual(sut.title, "Test viewDidAppear")
     }
 
+    func testContentChanged() {
+        viewModel.entryText = "Test Content"
+        viewModel.contentChanged?("Test Content")
+        viewModel.loaderChanged?(true)
+        viewModel.loaderChanged?(false)
+        viewModel.shouldOpenViewMore?(false)
+        viewModel.shouldOpenViewMore?(true)
+
+        //TODO:: valify the the change on view
+    }
+
     class MockRootViewModel: RootViewModelType {
         var entryText: String? = "Test"
 
