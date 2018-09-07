@@ -8,9 +8,14 @@
 
 import Foundation
 
-class SearchService {
-    static let shared = SearchService()
+protocol SearchProvider {
 
+    func search(terms: String, completion: @escaping (String)->Void)
+
+}
+
+class SearchService: SearchProvider {
+    // To create cancelable tasks for demo purpose
     let queue = DispatchQueue(label: "Test")
     var work: DispatchWorkItem?
     func search(terms: String, completion: @escaping (String)->Void) {

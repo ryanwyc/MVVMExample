@@ -20,10 +20,10 @@ protocol ListViewModelType {
 
 class ListViewModel: ListViewModelType {
 
-    private let itemService: ItemService
+    private let itemService: ItemProvider
     private let listItemsUseCase: ListItemsUseCase
 
-    init(itemService: ItemService = ItemService(),
+    init(itemService: ItemProvider = ItemService(),
          listItemsUseCase: ListItemsUseCase = ListItemsUseCase()) {
         self.itemService = itemService
         self.listItemsUseCase = listItemsUseCase

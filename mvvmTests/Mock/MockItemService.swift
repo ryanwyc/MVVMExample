@@ -8,8 +8,8 @@
 
 @testable import mvvm
 
-class MockSuccessItemService: ItemService {
-    override func fetchItems(completion: ([ListItem]?) -> Void) {
+class MockSuccessItemService: ItemProvider {
+    func fetchItems(completion: ([ListItem]?) -> Void) {
         let items = [
             ListItem(title: "Item #1", subTitle: "A good book", date: "2008-09-01"),
             ListItem(title: "Item #2", subTitle: "A fun toy", date: nil),
@@ -19,8 +19,8 @@ class MockSuccessItemService: ItemService {
     }
 }
 
-class MockFailureItemService: ItemService {
-    override func fetchItems(completion: ([ListItem]?) -> Void) {
+class MockFailureItemService: ItemProvider {
+    func fetchItems(completion: ([ListItem]?) -> Void) {
         completion(nil)
     }
 }

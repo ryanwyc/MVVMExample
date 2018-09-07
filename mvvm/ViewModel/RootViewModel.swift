@@ -24,7 +24,7 @@ protocol RootViewModelType {
 }
 
 class RootViewModel: RootViewModelType {
-    private let searchService: SearchService
+    private let searchService: SearchProvider
     private var counter = 0
     // Inputs
     var entryText: String? {
@@ -63,7 +63,7 @@ class RootViewModel: RootViewModelType {
     var shouldOpenViewMore: ((Bool) -> Void)?
     var pageTitleChanged: ((String?) -> Void)?
 
-    init(searchService: SearchService = .shared) {
+    init(searchService: SearchProvider = SearchService()) {
         self.searchService = searchService
     }
 

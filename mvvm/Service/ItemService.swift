@@ -8,7 +8,11 @@
 
 import Foundation
 
-class ItemService {
+protocol ItemProvider {
+    func fetchItems(completion: ([ListItem]?) -> Void)
+}
+
+class ItemService: ItemProvider {
 
     func fetchItems(completion: ([ListItem]?) -> Void) {
         let items = [

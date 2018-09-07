@@ -8,14 +8,14 @@
 
 @testable import mvvm
 
-class MockSuccessSearchService: SearchService {
-    override func search(terms: String, completion: @escaping (String) -> Void) {
+class MockSuccessSearchService: SearchProvider {
+    func search(terms: String, completion: @escaping (String) -> Void) {
         return completion("Results: \(terms)")
     }
 }
 
-class MockFailureSearchService: SearchService {
-    override func search(terms: String, completion: @escaping (String) -> Void) {
+class MockFailureSearchService: SearchProvider {
+    func search(terms: String, completion: @escaping (String) -> Void) {
         return completion("Errors: search \(terms) failed")
     }
 }
