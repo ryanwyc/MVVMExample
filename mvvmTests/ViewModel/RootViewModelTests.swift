@@ -45,7 +45,7 @@ class RootViewModelTests: XCTestCase {
         sut.contentChanged = { text in
             XCTAssertEqual(text, "Results: Test")
         }
-        sut.entryText = "Test"
+        sut.enter(text: "Test")
     }
 
     func testSearchTextFailure() {
@@ -54,7 +54,7 @@ class RootViewModelTests: XCTestCase {
         sut.contentChanged = { text in
             XCTAssertEqual(text, "Errors: search Test failed")
         }
-        sut.entryText = "Test"
+        sut.enter(text: "Test")
     }
 
     func testLoader() {
@@ -62,7 +62,7 @@ class RootViewModelTests: XCTestCase {
         sut.loaderChanged = { shouldShow in
             loaderShowed.append(shouldShow)
         }
-        sut.entryText = "Test Loader"
+        sut.enter(text: "Test Loader")
         XCTAssertEqual(loaderShowed, [true, false])
     }
 

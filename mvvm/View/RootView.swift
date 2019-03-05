@@ -30,35 +30,35 @@ class RootView: UIViewController {
         entryTextField.delegate = self
         viewMoreButton.addTarget(self, action: #selector(navToListView), for: .touchUpInside)
         setupViewModelBinding()
-        viewModel?.viewDidLoad()
+        viewModel?.inputs.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel?.viewWillAppear()
+        viewModel?.inputs.viewWillAppear()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel?.viewDidAppear()
+        viewModel?.inputs.viewDidAppear()
     }
 
     @objc private func entryTextFieldDidChange() {
-        viewModel?.entryText = entryTextField.text
+        viewModel?.inputs.enter(text: entryTextField.text)
     }
 
     @objc private func navToListView() {
-        viewModel?.tappedViewMore()
+        viewModel?.inputs.tappedViewMore()
     }
 
     private func setupViewModelBinding() {
-        viewModel?.contentChanged = { [weak self] text in
+        viewModel?.outputs.contentChanged = { [weak self] text in
             DispatchQueue.main.async {
                 self?.contentLabel.text = text
             }
         }
 
-        viewModel?.loaderChanged = { [weak self] shouldShow in
+        viewModel?.outputs.loaderChanged = { [weak self] shouldShow in
             DispatchQueue.main.async {
                 if shouldShow {
                     self?.loadingIndicatorView.startAnimating()
@@ -68,7 +68,7 @@ class RootView: UIViewController {
             }
         }
 
-        viewModel?.shouldOpenViewMore = { [weak self] shouldOpen in
+        viewModel?.outputs.shouldOpenViewMore = { [weak self] shouldOpen in
             if shouldOpen {
                 let view = ListView.instantiate(viewModel: ListViewModel())
                 self?.navigationController?.pushViewController(view, animated: true)
@@ -77,7 +77,7 @@ class RootView: UIViewController {
             }
         }
 
-        viewModel?.pageTitleChanged = { [weak self] title in
+        viewModel?.outputs.pageTitleChanged = { [weak self] title in
             self?.title = title
         }
     }

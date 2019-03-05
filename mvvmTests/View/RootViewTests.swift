@@ -38,18 +38,36 @@ class RootViewTests: XCTestCase {
     }
 
     func testContentChanged() {
-        viewModel.entryText = "Test Content"
-        viewModel.contentChanged?("Test Content")
-        viewModel.loaderChanged?(true)
-        viewModel.loaderChanged?(false)
-        viewModel.shouldOpenViewMore?(false)
-        viewModel.shouldOpenViewMore?(true)
+        viewModel.inputs.enter(text: "Test Content")
+        viewModel.outputs.contentChanged?("Test Content")
+        viewModel.outputs.loaderChanged?(true)
+        viewModel.outputs.loaderChanged?(false)
+        viewModel.outputs.shouldOpenViewMore?(false)
+        viewModel.outputs.shouldOpenViewMore?(true)
 
         //TODO:: valify the the change on view
     }
 
-    class MockRootViewModel: RootViewModelType {
-        var entryText: String? = "Test"
+    class MockRootViewModel: RootViewModelType, RootViewModelInput, RootViewModelOutput {
+
+        private var enteredText: String?
+
+        var inputs: RootViewModelInput {
+            return self
+        }
+
+        var outputs: RootViewModelOutput {
+            get {
+                return self
+            }
+            set {
+                // not use
+            }
+        }
+
+        func enter(text: String?) {
+            enteredText = text ?? "Test"
+        }
 
         func viewWillAppear() {
             pageTitleChanged?("Test viewWillAppear")

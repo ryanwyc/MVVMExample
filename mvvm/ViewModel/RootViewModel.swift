@@ -9,13 +9,20 @@
 import Foundation
 
 protocol RootViewModelType {
+    var inputs: RootViewModelInput { get }
+    var outputs: RootViewModelOutput { get set }
+}
+
+protocol RootViewModelInput {
     // Inputs
-    var entryText: String? { get set }
+    func enter(text: String?)
     func viewWillAppear()
     func viewDidLoad()
     func viewDidAppear()
     func tappedViewMore()
+}
 
+protocol RootViewModelOutput {
     // Outputs
     var contentChanged: ((String?) -> Void)? { get set }
     var loaderChanged: ((Bool) -> Void)? { get set }
@@ -23,22 +30,35 @@ protocol RootViewModelType {
     var pageTitleChanged: ((String?) -> Void)? { get set }
 }
 
-class RootViewModel: RootViewModelType {
+class RootViewModel: RootViewModelType, RootViewModelInput, RootViewModelOutput {
+
     private let searchService: SearchProvider
     private var counter = 0
+
+    var inputs: RootViewModelInput {
+        return self
+    }
+    var outputs: RootViewModelOutput {
+        get {
+            return self
+        }
+        set {
+            // no use
+        }
+    }
+
     // Inputs
-    var entryText: String? {
-        didSet {
-            if let entryText = entryText {
-                self.loaderChanged?(true)
-                print("Searching terms \(entryText)")
-                searchService.search(terms: entryText) { [weak self] response in
-                    self?.loaderChanged?(false)
-                    self?.contentChanged?(response)
-                }
+    func enter(text: String?) {
+        if let entryText = text {
+            self.loaderChanged?(true)
+            print("Searching terms \(entryText)")
+            searchService.search(terms: entryText) { [weak self] response in
+                self?.loaderChanged?(false)
+                self?.contentChanged?(response)
             }
         }
     }
+    
     func viewWillAppear() {
         pageTitleChanged?("MVVM View Will Appear")
     }

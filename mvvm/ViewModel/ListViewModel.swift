@@ -8,10 +8,15 @@
 
 import Foundation
 
-protocol ListViewModelType {
+
+typealias ListViewModelType = ListViewModelInput & ListViewModelOutput
+
+protocol ListViewModelInput {
     // Inputs
     func viewDidLoad()
+}
 
+protocol ListViewModelOutput {
     // Outputs
     func cellViewModel(at indexPath: IndexPath) -> ConfigurableCellViewModel
     func numberOfRowsInSection(section: Int) -> Int
